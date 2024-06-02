@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetConnectedCoffeeMachine", "InternetConnectedCoffeeMachine\InternetConnectedCoffeeMachine.csproj", "{563A8AC4-23F0-49F9-A65D-68AB4165F5C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DD707A4C-C0B4-40FC-B660-4ABE6DE73D35}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{A78F00D5-9313-4998-A0C9-8E37E2BFB0BD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InternetConnectedCoffeeMachine.Integration", "InternetConnectedCoffeeMachine.Integration\InternetConnectedCoffeeMachine.Integration.csproj", "{080F4E7A-944C-481B-8E36-3723D47230FF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{563A8AC4-23F0-49F9-A65D-68AB4165F5C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563A8AC4-23F0-49F9-A65D-68AB4165F5C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563A8AC4-23F0-49F9-A65D-68AB4165F5C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563A8AC4-23F0-49F9-A65D-68AB4165F5C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{080F4E7A-944C-481B-8E36-3723D47230FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{080F4E7A-944C-481B-8E36-3723D47230FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{080F4E7A-944C-481B-8E36-3723D47230FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{080F4E7A-944C-481B-8E36-3723D47230FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{563A8AC4-23F0-49F9-A65D-68AB4165F5C8} = {DD707A4C-C0B4-40FC-B660-4ABE6DE73D35}
+		{080F4E7A-944C-481B-8E36-3723D47230FF} = {A78F00D5-9313-4998-A0C9-8E37E2BFB0BD}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7E51EC3C-E343-479D-B2FC-808827FE5CF9}
+	EndGlobalSection
+EndGlobal

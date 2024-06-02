@@ -1,0 +1,6 @@
+@InternetConnectedCoffeeMachine_HostAddress = http://localhost:5192
+
+GET {{InternetConnectedCoffeeMachine_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
