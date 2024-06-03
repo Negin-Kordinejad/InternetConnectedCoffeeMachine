@@ -13,14 +13,14 @@ Design and implement an HTTP API that controls an imaginary internet-connected c
 ## Architecture
 - InternetConnectedCoffeeMachine:
   - A REST API Project, injecting a mediator to chain handlers as pipeline behaviours using the [MediatR] library
-  -Infrastructure:
-  -Queries:
+  - Infrastructure:
+   - Queries:
       - GetCoffeeQuery handler to provide a regular coffee.
-  -Common/Behaviours
+   - Common/Behaviours
     - Pipeline behaviours that perform chained actions before executing GetCoffeeQuery and apply the business rules.
-  -Services
+ - Services
    - functions to use in handlers and behaviours.
-   - 
+    
 - InternetConnectedCoffeeMachine.IntegrationTests
   - Tests to satisfy the business scenarios
 
