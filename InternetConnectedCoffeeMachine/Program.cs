@@ -1,3 +1,5 @@
+using InternetConnectedCoffeeMachine.Application.ClientAgent.Web;
+using InternetConnectedCoffeeMachine.Application.ClientAgent.Web.Weather;
 using InternetConnectedCoffeeMachine.Application.Infrastracture.Common.Behaviours;
 using InternetConnectedCoffeeMachine.Application.Services;
 using InternetConnectedCoffeeMachine.Middlewares;
@@ -9,12 +11,20 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 builder.Services.AddScoped<ICoffeeService, CoffeeService>();
 builder.Services.AddScoped<ICoffeeCountService, CoffeeCountService>();
+builder.Services.AddScoped<IWeatherService, WeatherService>();
+
+builder.Services.AddHttpClient();
+builder.Services.AddScoped<IHttpService, HttpService>();
+
+builder.Services.AddScoped<IWeatherApiAgent, WeatherApiAgent>();
+builder.Services.AddScoped<IWeatherApiAgent, WeatherApiAgent>();
 
 
 builder.Services.AddMediatR(c => c.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(NoBrewingCoffeeDayBehaviour<,>));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(OutOfCoffeeBehaviour<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(WeatherBehaviour<,>));
 
 builder.Services.AddMemoryCache();
 builder.Services.AddControllers();

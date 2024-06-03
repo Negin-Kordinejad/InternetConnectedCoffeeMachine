@@ -8,7 +8,12 @@
             public const string CoffeeReadyMessage = $"Your piping hot coffee is ready";
             public const string IcedCoffeeMessage = $"Your refreshing iced coffee is ready";
         }
+        public static class Weather
+        {
 
+            public const string IcedCoffeeReadyMessage = $"Your refreshing iced coffee is ready";
+            public const float TemperatureInC = 30;
+        }
         public static class Format
         {
             public const string ISO8601Format = "yyyy-MM-ddTHH:mm:sszzz";
