@@ -19,7 +19,7 @@ namespace InternetConnectedCoffeeMachine.Integration
         private const string CurrentDateTimeIsoFormat = "2024-06-02T18:50:22+10:00";
         private const string AprilFirstDateTime = "1/04/2024 6:50:22 PM";
         private readonly Mock<IDateTimeProvider> DateTimeProviderFake = new Mock<IDateTimeProvider>();
-
+        private readonly Mock<IWeatherService> WeatherServiceFake = new Mock<IWeatherService>();
         public CoffeeControllerTest(WebApplicationFactory<Program> factory)
         {
             _factory = factory
@@ -94,6 +94,36 @@ namespace InternetConnectedCoffeeMachine.Integration
 
             // Assert
             responseMessage.Should().HaveStatusCode((System.Net.HttpStatusCode)StatusCodes.Status418ImATeapot);
+
+        }
+       
+        [Fact]
+        public async Task WhenCalling_Get_Brew_Coffee_In_Hot_Day_Should_Returns_IcedCoffee()
+        {
+            // Arrange
+            var currentFactory = _factory
+                  .WithWebHostBuilder(builder =>
+                  {
+                      builder.ConfigureServices(services =>
+                      {
+                          services.Replace(ServiceDescriptor.Singleton(typeof(IWeatherService), WeatherServiceFake.ConfigureGetCurrentTemperature(35).Object));
+                      });
+                  });
+            var client = currentFactory.CreateClient();
+
+            var url = $"{client.BaseAddress}brew-coffee";
+
+            // Act
+            var responseMessage = await client.GetAsync(url);
+
+            // Assert
+            // Assert
+            responseMessage.EnsureSuccessStatusCode();
+            var coffee = await responseMessage.DeserializeContentAsync<CoffeeModel>();
+            coffee.Should().NotBeNull();
+            coffee.Message.Should()
+                .Be(Constants.Weather.IcedCoffeeReadyMessage);
+            coffee.Prepared.Should().BeEquivalentTo(CurrentDateTimeIsoFormat);
 
         }
     }
