@@ -15,11 +15,11 @@ namespace InternetConnectedCoffeeMachine.Application.Services
         {
             string IsoDateTime = _dateTimeProvider.Now.ToString(Constants.Format.ISO8601Format);
 
-            return new CoffeeModel
+            return await Task.FromResult(new CoffeeModel
             {
                 Message = Constants.Message.CoffeeReadyMessage,
                 Prepared = IsoDateTime
-            };
+            });
         }
     }
 }

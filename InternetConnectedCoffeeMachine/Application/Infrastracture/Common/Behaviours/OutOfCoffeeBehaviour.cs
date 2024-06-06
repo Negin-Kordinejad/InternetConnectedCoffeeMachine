@@ -15,10 +15,6 @@ namespace InternetConnectedCoffeeMachine.Application.Infrastracture.Common.Behav
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
-            if (request is Response<CoffeeModel> rc && !rc.IsSuccessful)
-            {
-                return await next();
-            }
 
             if (_coffeeCountService.GetCoffeeCallCount() == 0)
             {

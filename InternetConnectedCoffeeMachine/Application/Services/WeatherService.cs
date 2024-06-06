@@ -6,7 +6,6 @@ namespace InternetConnectedCoffeeMachine.Application.Services
     public class WeatherService : IWeatherService
     {
         private readonly IWeatherApiAgent _weatherApiAgent;
-        private float defult;
 
         public WeatherService(IWeatherApiAgent weatherApiAgent)
         {
@@ -17,8 +16,8 @@ namespace InternetConnectedCoffeeMachine.Application.Services
         {
             var response = await _weatherApiAgent.GetCurrentTemperatureAsync();
 
-            if (response == null)
-            { return defult; }
+            if (response == null || response.main == null)
+            { return default; }
 
             return response.main.temp;
         }

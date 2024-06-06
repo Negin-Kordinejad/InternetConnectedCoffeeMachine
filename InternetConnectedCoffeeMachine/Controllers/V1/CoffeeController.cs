@@ -16,9 +16,9 @@ namespace InternetConnectedCoffeeMachine.Controllers.V1
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get(CancellationToken cancellationToken)
         {
-            var result = await _mediator.Send(new GetCoffeeQuery());
+            var result = await _mediator.Send(new GetCoffeeQuery(), cancellationToken);
             if (result.IsSuccessful)
             {
                 return Ok(result.Data);

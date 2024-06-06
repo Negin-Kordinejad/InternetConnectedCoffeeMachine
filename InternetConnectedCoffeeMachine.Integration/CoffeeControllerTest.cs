@@ -15,9 +15,9 @@ namespace InternetConnectedCoffeeMachine.Integration
     {
         private readonly WebApplicationFactory<Program> _factory;
         private readonly HttpClient _client;
-        private readonly string CurrentDateTime = "2/06/2024 6:50:22 PM";
+        private readonly DateTime CurrentDateTime = DateTime.Parse("2/06/2024 6:50:22 PM");
         private const string CurrentDateTimeIsoFormat = "2024-06-02T18:50:22+10:00";
-        private const string AprilFirstDateTime = "1/04/2024 6:50:22 PM";
+        private readonly DateTime AprilFirstDateTime = DateTime.Parse("1/04/2024 6:50:22 PM");
         private readonly Mock<IDateTimeProvider> DateTimeProviderFake = new Mock<IDateTimeProvider>();
         private readonly Mock<IWeatherService> WeatherServiceFake = new Mock<IWeatherService>();
         public CoffeeControllerTest(WebApplicationFactory<Program> factory)
@@ -27,7 +27,7 @@ namespace InternetConnectedCoffeeMachine.Integration
                   {
                       builder.ConfigureServices(services =>
                       {
-                          services.Replace(ServiceDescriptor.Singleton(typeof(IDateTimeProvider), DateTimeProviderFake.ConfigureGetCurrentDateTime(DateTime.Parse(CurrentDateTime)).Object));
+                          services.Replace(ServiceDescriptor.Singleton(typeof(IDateTimeProvider), DateTimeProviderFake.ConfigureGetCurrentDateTime(CurrentDateTime).Object));
                       });
                   });
 
@@ -82,7 +82,7 @@ namespace InternetConnectedCoffeeMachine.Integration
                   {
                       builder.ConfigureServices(services =>
                       {
-                          services.Replace(ServiceDescriptor.Singleton(typeof(IDateTimeProvider), DateTimeProviderFake.ConfigureGetCurrentDateTime(DateTime.Parse(AprilFirstDateTime)).Object));
+                          services.Replace(ServiceDescriptor.Singleton(typeof(IDateTimeProvider), DateTimeProviderFake.ConfigureGetCurrentDateTime(AprilFirstDateTime).Object));
                       });
                   });
             var client = currentFactory.CreateClient();
@@ -96,7 +96,7 @@ namespace InternetConnectedCoffeeMachine.Integration
             responseMessage.Should().HaveStatusCode((System.Net.HttpStatusCode)StatusCodes.Status418ImATeapot);
 
         }
-       
+
         [Fact]
         public async Task WhenCalling_Get_Brew_Coffee_In_Hot_Day_Should_Returns_IcedCoffee()
         {
@@ -106,7 +106,7 @@ namespace InternetConnectedCoffeeMachine.Integration
                   {
                       builder.ConfigureServices(services =>
                       {
-                          services.Replace(ServiceDescriptor.Singleton(typeof(IWeatherService), WeatherServiceFake.ConfigureGetCurrentTemperature(35).Object));
+                          services.Replace(ServiceDescriptor.Scoped(typeof(IWeatherService), w => WeatherServiceFake.ConfigureGetCurrentTemperature(35).Object));
                       });
                   });
             var client = currentFactory.CreateClient();
@@ -116,7 +116,6 @@ namespace InternetConnectedCoffeeMachine.Integration
             // Act
             var responseMessage = await client.GetAsync(url);
 
-            // Assert
             // Assert
             responseMessage.EnsureSuccessStatusCode();
             var coffee = await responseMessage.DeserializeContentAsync<CoffeeModel>();
